@@ -79,6 +79,9 @@ web_modules/
 .env.production.local
 .env.local
 
+# Helps ignore the node modules
+.DS_Store/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
