@@ -1,16 +1,11 @@
-/* Run the following Code At the start of the application to install inquierer
-npm init -y
-npm i inquirer@8.2.4
-*/
 
 const fs = require('fs');
 const inquirer = require('inquirer'); 
-const inst_list = [];
-const test_list = [];
+const list = [];
 
-const list_making = async (call,variable) => {
+const list_making = (call,variable,response) => {
     if (call === "Yes") {
-        console.log("Input Required");
+        console.log("Instructions Required");
         //console.log(response, "testing-first");
         inquirer.prompt([
             {
@@ -25,32 +20,34 @@ const list_making = async (call,variable) => {
             name: 'instruction_continue',
             },
         ]).then((inst_response) => {
-            if (variable === "installation") {
-                inst_list.push(inst_response.instruction)} 
-            else if (variable === "testing") {
-                test_list.push(inst_response.instruction)};
-            list_making(inst_response.instruction_continue,variable);
+            list.push(inst_response.instruction);
+            list_making(inst_response.instruction_continue,variable,response);
         });
     } else if (call === "No") {
-        console.log("Recording in Progress")
+        console.log(response, "Recording in Progress")
         if (variable === "installation") {
-            if (inst_list == null) {
-                inst_list.push("N/A");
+            if (list == null) {
+                list.push("N/A");
                 console.log("No Instructions");
             };
-            console.log('Recoring approaching Destination');
+            console.log(list);
+           //console.log(typeof response)
+            response.install_inst = list;
+            console.log('Recoring approaching Destination', response);
+            return new Promise ((resolve) => resolve(response))
         } else if (variable === "testing") {
-            if (test_list == null) {
-                test_list.push("N/A");
+            if (list == null) {
+                list.push("N/A");
                 console.log("No Instructions");
             };
+            response.testing_inst = list;
+            return new Promise ((resolve) => resolve(response))
         };
     };
 };  
 
 function readme () {
-    return new Promise((resolve) =>{resolve(
-        inquirer.prompt([
+    inquirer.prompt([
     { 
         type: 'input',
         message: 'What is the name of your project?',
@@ -104,21 +101,31 @@ function readme () {
         message: 'What is your public email?',
         name: 'email_name',
     },
-        ])
-        )
+    ])
+    .then((response) => {
+        console.log("Installing")
+        let new_response = new Promise ((resolve) => {resolve(list_making(response.installation_prompt,"installation",response))});
+        new_response
+        .then((response) => {
+            console.log("Testing")
+            return new Promise ((resolve) => {resolve(list_making(response.testing_prompt,"testing",response))});  // return new Promise ((resolve) => {resolve(response)})
     })
+    /*.then((response) => {
+        console.log("Testing")
+        return new Promise ((resolve) => {resolve(list_making(response.testing_prompt,"testing",response))});  // return new Promise ((resolve) => {resolve(response)})
+    })
+    */
+    });
 };
+    //.then((response) => show_me(response))}; 
+
+/* const new_readme = new Promise((resolve) => {
+        resolve(readme())        
+    })
+*/
 
 async function show_me (call) {console.log (call)};
 
 async function init () {
-    const new_readme = await readme();  // returns an object from Inquirer
-    const new_inst = await list_making(new_readme.installation_prompt,"installation");
-    const new_test = await list_making(new_readme.testing_prompt,"testing");
-};
-
-init();
-/*fs.write('README.md', `${process.argv[2]}\n`, (err) =>
-  // TODO: Describe how this ternary operator works
-  err ? console.error(err) : console.log('Commit logged!')
-);*/
+    readme();   
+     
