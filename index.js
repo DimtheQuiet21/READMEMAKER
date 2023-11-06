@@ -76,7 +76,7 @@ function readme () {
     },
     {
         type: 'input',
-        message: 'What is your projects Usage Information? How are people supposed to use your project?',
+        message: 'What is your project'+"'"+'s Usage Information? How are people supposed to use your project?',
         name: 'usage_info',
     },
     {
@@ -150,45 +150,53 @@ function create_readme (readme) {
     const chosen_license = get_license(readme.license_prompt);
     const final_readme =
     
-    `# ${readme.project_name} by ${readme.user_name}
+`# ${readme.project_name} by ${readme.user_name}
 
-    ${chosen_license}
+${chosen_license}
 
-    ## Table of Contents
-    [Description](#description)
+## Table of Contents
 
-    [Installation](#installation)
+[Description](#description)
 
-    [Usage](#usage)
+[Installation](#installation)
 
-    [Deployed Website](#deployed-website)
+[Usage Information](#usage-information)
 
-    [Questions?](#questions?)
+[Testing Instructions](#testing-instructions)
 
-    [Contributing](#contributing)
+[Deployed Website](#deployed-website)
 
-    [License](#license)
+[Questions?](#questions?)
 
-    ## Description 
-    ${readme.project_description}
-        
-    ## Installation
-    ${inst_list}
+[Contributing](#contributing)
 
-    ## Usage
+[License](#license)
 
-    ## Deployed Website 
-    Link to ${readme.user_name}'s ${readme.project_name}: ${readme.URL_name}
+## Description 
+${readme.project_description}
 
-    ## Questions?
-    Link to ${readme.user_name}'s GitHub Repository: https://github.com/${readme.github_name}/${readme.project_name}
-    Please Contact ${readme.user_name} at ${readme.email_name} if you have additional questions.
+## Installation
+${inst_list}
 
-    ## Contributing 
-    ${readme.contribution_info}
-    ## License 
-    The ${readme.license_prompt} was used for the creation and the publication of this Repository and Webpage.
-    ${chosen_license}`
+## Usage Information
+${(readme.usage_info)}
+
+## Testing Instructions
+${test_list}
+
+## Deployed Website 
+Link to ${readme.user_name}'s ${readme.project_name}: ${readme.URL_name}
+
+## Questions?
+Link to ${readme.user_name}'s GitHub Repository: ${readme.URL_name}
+Please Contact ${readme.user_name} at ${readme.email_name} if you have additional questions.
+
+## Contributing 
+${readme.contribution_info}
+
+## License 
+The ${readme.license_prompt} was used for the creation and the publication of this Repository and Webpage.
+${chosen_license}`
 /////////////////////////  
     fs.writeFile('YOUR_README.md', final_readme, (err) =>
     err ? console.error(err) : console.log('Success!')
