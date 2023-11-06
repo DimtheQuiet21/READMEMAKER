@@ -19,7 +19,7 @@ const list_making = async (call,variable) => {
             name: 'instruction',
             },
             {
-                type: 'list',
+            type: 'list',
             message: 'Are there further instructions?',
             choices: ['Yes','No'],
             name: 'instruction_continue',
@@ -28,7 +28,8 @@ const list_making = async (call,variable) => {
             if (variable === "installation") {
                 inst_list.push(inst_response.instruction)} 
             else if (variable === "testing") {
-                test_list.push(inst_response.instruction)};
+                test_list.push(inst_response.instruction)}
+            else {console.log ("Instruction Input Error - 1")}
             list_making(inst_response.instruction_continue,variable);
         });
     } else if (call === "No") {
@@ -37,20 +38,26 @@ const list_making = async (call,variable) => {
             if (inst_list == null) {
                 inst_list.push("N/A");
                 console.log("No Instructions");
-            };
+            } else {console.log(inst_list)};
             console.log('Recoring approaching Destination');
         } else if (variable === "testing") {
             if (test_list == null) {
                 test_list.push("N/A");
                 console.log("No Instructions");
-            };
-        };
+            } else {console.log(test_list)};
+        } else {console.log("Recoding failure - 3")};
+    } else {
+        console.log("Instruction Terminated")
     };
 };  
 
 function readme () {
-    return new Promise((resolve) =>{resolve(
-        inquirer.prompt([
+    return inquirer.prompt([
+    { 
+        type: 'input',
+        message: 'What is your name?',
+        name: 'user_name',
+    },
     { 
         type: 'input',
         message: 'What is the name of your project?',
@@ -87,7 +94,7 @@ function readme () {
         type: 'list',
         message: 'What is this project'+"'"+'s license?',
         choices: ["MIT", "GPLv2","GPLv3","Apache","BSD 2-clause","BSD 3-clause","LGPLv3","AGPLv3","Unlicense"],
-        name: 'testing_prompt',
+        name: 'license_prompt',
     },
     { 
         type: 'input',
@@ -104,21 +111,99 @@ function readme () {
         message: 'What is your public email?',
         name: 'email_name',
     },
-        ])
-        )
-    })
+    ])
 };
 
-async function show_me (call) {console.log (call)};
-
-async function init () {
-    const new_readme = await readme();  // returns an object from Inquirer
-    const new_inst = await list_making(new_readme.installation_prompt,"installation");
-    const new_test = await list_making(new_readme.testing_prompt,"testing");
+function get_license (prompt) {
+    if (prompt === "MIT") {   
+        return `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
+    }
+    else if (prompt === "GPLv2"){ 
+        return `[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)`
+    }
+    else if (prompt === "GPLv3") {
+        return `[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)`
+    }
+    else if (prompt === "Apache") {
+        return `[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)`
+    }
+    else if (prompt === "BSD 2-clause") {
+        return `[![License](https://img.shields.io/badge/License-BSD_2--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)`
+    }
+    else if (prompt === "BSD 3-clause") {
+        return `[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)`
+    }
+    else if (prompt === "LGPLv3") {
+        return `[![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)`
+    }
+    else if (prompt === "AGPLv3") {
+        return `[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)` 
+    }
+    else if (prompt === "Unlicense") {
+        return `[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)`
+    }   
+    else {console.log("license_error")};
 };
+
+function create_readme (readme) {
+    
+    const chosen_license = get_license(readme.license_prompt);
+    const final_readme = 
+`# ${readme.project_name} by ${readme.user_name}
+
+${chosen_license}
+
+## Table of Contents
+    [Description]#Description 
+    [Installation]
+    [Usage]
+    [Deployed Website]
+    [Questions?]
+    [Contributing]
+    [License]
+
+## Description 
+    ${readme.project_description}
+    
+## Installation
+    ${inst_list}
+## Usage
+
+## Deployed Website 
+    Link to ${readme.user_name}'s ${readme.project_name}: ${readme.URL_name}
+
+## Questions?
+    Link to ${readme.user_name}'s GitHub Repository: https://github.com/${readme.github_name}/${readme.project_name}
+    Please Contact ${readme.user_name} at ${readme.email_name} if you have additional questions.
+
+## Contributing 
+
+## License 
+    The ${readme.license_prompt} was used for the creation and the publication of this Repository and Webpage.
+${chosen_license}`
+/////////////////////////  
+    fs.writeFile('YOUR_README.md', final_readme, (err) =>
+    err ? console.error(err) : console.log('Success!')
+ );
+}; 
+
+function init () {
+    readme()
+        //.then((new_readme) => list_making(new_readme.installation_prompt,"installation"))
+        //.then(async(brand_readme) => await list_making(brand_readme.installation_prompt,"testing"))
+        //.then((final_readme) => console.log(typeof final_readme))
+        //console.log(typeof new_inst);
+        //const new_test = await list_making(new_readme.testing_prompt,"testing");
+
+        .then((new_readme) => {
+            create_readme(new_readme);
+        });
+};
+
 
 init();
 /*fs.write('README.md', `${process.argv[2]}\n`, (err) =>
   // TODO: Describe how this ternary operator works
   err ? console.error(err) : console.log('Commit logged!')
 );*/
+
