@@ -150,45 +150,45 @@ function create_readme (readme) {
     const chosen_license = get_license(readme.license_prompt);
     const final_readme =
     
-`# ${readme.project_name} by ${readme.user_name}
+    `# ${readme.project_name} by ${readme.user_name}
 
-${chosen_license}
+    ${chosen_license}
 
-## Table of Contents
-[Description](#description)
+    ## Table of Contents
+    [Description](#description)
 
-[Installation](#installation)
+    [Installation](#installation)
 
-[Usage](#usage)
+    [Usage](#usage)
 
-[Deployed Website](#deployed-website)
+    [Deployed Website](#deployed-website)
 
-[Questions?](#questions?)
+    [Questions?](#questions?)
 
-[Contributing](#contributing)
+    [Contributing](#contributing)
 
-[License](#license)
+    [License](#license)
 
-## Description 
+    ## Description 
     ${readme.project_description}
-    
-## Installation
+        
+    ## Installation
     ${inst_list}
 
-## Usage
+    ## Usage
 
-## Deployed Website 
+    ## Deployed Website 
     Link to ${readme.user_name}'s ${readme.project_name}: ${readme.URL_name}
 
-## Questions?
+    ## Questions?
     Link to ${readme.user_name}'s GitHub Repository: https://github.com/${readme.github_name}/${readme.project_name}
     Please Contact ${readme.user_name} at ${readme.email_name} if you have additional questions.
 
-## Contributing 
+    ## Contributing 
     ${readme.contribution_info}
-## License 
+    ## License 
     The ${readme.license_prompt} was used for the creation and the publication of this Repository and Webpage.
-${chosen_license}`
+    ${chosen_license}`
 /////////////////////////  
     fs.writeFile('YOUR_README.md', final_readme, (err) =>
     err ? console.error(err) : console.log('Success!')
