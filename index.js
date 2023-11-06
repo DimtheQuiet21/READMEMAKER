@@ -148,7 +148,8 @@ function get_license (prompt) {
 function create_readme (readme) {
     
     const chosen_license = get_license(readme.license_prompt);
-    const final_readme = 
+    const final_readme =
+    
 `# ${readme.project_name} by ${readme.user_name}
 
 ${chosen_license}
@@ -173,6 +174,7 @@ ${chosen_license}
     
 ## Installation
     ${inst_list}
+
 ## Usage
 
 ## Deployed Website 
@@ -183,7 +185,7 @@ ${chosen_license}
     Please Contact ${readme.user_name} at ${readme.email_name} if you have additional questions.
 
 ## Contributing 
-
+    ${readme.contribution_info}
 ## License 
     The ${readme.license_prompt} was used for the creation and the publication of this Repository and Webpage.
 ${chosen_license}`
