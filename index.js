@@ -155,11 +155,17 @@ ${chosen_license}
 
 ## Table of Contents
 [Description](#description)
+
 [Installation](#installation)
+
 [Usage](#usage)
+
 [Deployed Website](#deployed-website)
+
 [Questions?](#questions?)
+
 [Contributing](#contributing)
+
 [License](#license)
 
 ## Description 
