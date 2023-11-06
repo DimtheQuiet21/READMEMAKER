@@ -154,7 +154,7 @@ function create_readme (readme) {
 ${chosen_license}
 
 ## Table of Contents
-    [Description]#Description 
+    [Description](# Description)
     [Installation]
     [Usage]
     [Deployed Website]
