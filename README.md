@@ -24,6 +24,9 @@ This project is designed to allow you to create a professional readme using comm
 N/A
 
 ## Usage
+People may use this proect however they wish too.
+
+## Testing Insturctions 
 N/A
 
 ## Deployed Website 
