@@ -62,7 +62,6 @@ const list_making = (call,variable,readme) => {
     };
 };  
 
-
 function readme () {
     return inquirer.prompt([
     { 
@@ -219,7 +218,6 @@ function init () {
     readme()
         .then((new_readme) => list_making(new_readme.installation_prompt,"installation",new_readme))
 };
-
 
 init();
 
