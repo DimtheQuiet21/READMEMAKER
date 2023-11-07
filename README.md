@@ -26,7 +26,7 @@ N/A
 ## Usage
 People may use this proect however they wish too.
 
-## Testing Insturctions 
+## Testing Instructions 
 N/A
 
 ## Deployed Website 
