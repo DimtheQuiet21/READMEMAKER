@@ -7,8 +7,7 @@ const fs = require('fs');
 const inquirer = require('inquirer'); 
 const inst_list = [];
 const test_list = [];
-
-const list_making = async (call,variable) => {
+const list_making = (call,variable,readme) => {
     if (call === "Yes") {
         console.log("Input Required");
         //console.log(response, "testing-first");
@@ -26,11 +25,13 @@ const list_making = async (call,variable) => {
             },
         ]).then((inst_response) => {
             if (variable === "installation") {
-                inst_list.push(inst_response.instruction)} 
+                inst_list.push('\n'+inst_response.instruction+'\n')} 
             else if (variable === "testing") {
-                test_list.push(inst_response.instruction)}
-            else {console.log ("Instruction Input Error - 1")}
-            list_making(inst_response.instruction_continue,variable);
+                test_list.push('\n'+inst_response.instruction)}
+            else {
+                console.log ("Instruction Input Error - 1")
+            };
+            list_making(inst_response.instruction_continue,variable,readme)
         });
     } else if (call === "No") {
         console.log("Recording in Progress")
@@ -38,18 +39,33 @@ const list_making = async (call,variable) => {
             if (inst_list == null) {
                 inst_list.push("N/A");
                 console.log("No Instructions");
-            } else {console.log(inst_list)};
-            console.log('Recoring approaching Destination');
+                inst_list.join(" ")
+                return new Promise(() => {list_making(readme.testing_prompt,"testing",readme)});
+            } else {
+                console.log(inst_list)};
+                console.log('Recoring approaching Destination');
+                inst_list.join(" ")
+                return new Promise(() => {list_making(readme.testing_prompt,"testing",readme)});
+
+
+
+
         } else if (variable === "testing") {
             if (test_list == null) {
                 test_list.push("N/A");
                 console.log("No Instructions");
-            } else {console.log(test_list)};
+                test_list.join(" ")
+                return new Promise(() => {create_readme(readme,inst_list,test_list)}); 
+            } else {
+                console.log(test_list)};
+                test_list.join(" ")
+                return new Promise(() => {create_readme(readme,inst_list,test_list)}); 
         } else {console.log("Recoding failure - 3")};
     } else {
         console.log("Instruction Terminated")
     };
 };  
+
 
 function readme () {
     return inquirer.prompt([
@@ -177,13 +193,11 @@ ${readme.project_description}
 
 ## Installation
 ${inst_list}
-
 ## Usage Information
 ${(readme.usage_info)}
 
 ## Testing Instructions
 ${test_list}
-
 ## Deployed Website 
 Link to ${readme.user_name}'s ${readme.project_name}: ${readme.URL_name}
 
@@ -205,15 +219,15 @@ ${chosen_license}`
 
 function init () {
     readme()
-        //.then((new_readme) => list_making(new_readme.installation_prompt,"installation"))
-        //.then(async(brand_readme) => await list_making(brand_readme.installation_prompt,"testing"))
+        .then((new_readme) => list_making(new_readme.installation_prompt,"installation",new_readme))
+        //.then((brand_readme) => list_making(brand_readme.installation_prompt,"testing"))
         //.then((final_readme) => console.log(typeof final_readme))
         //console.log(typeof new_inst);
         //const new_test = await list_making(new_readme.testing_prompt,"testing");
 
-        .then((new_readme) => {
-            create_readme(new_readme);
-        });
+        // .then((new_readme) => {
+        //     create_readme(new_readme);
+        // });
 };
 
 
