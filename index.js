@@ -193,11 +193,13 @@ ${readme.project_description}
 
 ## Installation
 ${inst_list}
+
 ## Usage Information
 ${(readme.usage_info)}
 
 ## Testing Instructions
 ${test_list}
+
 ## Deployed Website 
 Link to ${readme.user_name}'s ${readme.project_name}: ${readme.URL_name}
 
@@ -220,20 +222,8 @@ ${chosen_license}`
 function init () {
     readme()
         .then((new_readme) => list_making(new_readme.installation_prompt,"installation",new_readme))
-        //.then((brand_readme) => list_making(brand_readme.installation_prompt,"testing"))
-        //.then((final_readme) => console.log(typeof final_readme))
-        //console.log(typeof new_inst);
-        //const new_test = await list_making(new_readme.testing_prompt,"testing");
-
-        // .then((new_readme) => {
-        //     create_readme(new_readme);
-        // });
 };
 
 
 init();
-/*fs.write('README.md', `${process.argv[2]}\n`, (err) =>
-  // TODO: Describe how this ternary operator works
-  err ? console.error(err) : console.log('Commit logged!')
-);*/
 
