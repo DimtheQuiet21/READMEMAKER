@@ -10,7 +10,6 @@ const test_list = [];
 const list_making = (call,variable,readme) => {
     if (call === "Yes") {
         console.log("Input Required");
-        //console.log(response, "testing-first");
         inquirer.prompt([
             {
             type: 'input',
@@ -25,7 +24,7 @@ const list_making = (call,variable,readme) => {
             },
         ]).then((inst_response) => {
             if (variable === "installation") {
-                inst_list.push('\n'+inst_response.instruction+'\n')} 
+                inst_list.push('\n'+inst_response.instruction)} 
             else if (variable === "testing") {
                 test_list.push('\n'+inst_response.instruction)}
             else {
@@ -38,29 +37,26 @@ const list_making = (call,variable,readme) => {
         if (variable === "installation") {
             if (inst_list == null) {
                 inst_list.push("N/A");
-                console.log("No Instructions");
-                inst_list.join(" ")
-                return new Promise(() => {list_making(readme.testing_prompt,"testing",readme)});
+                //console.log("No Instructions");
             } else {
-                console.log(inst_list)};
-                console.log('Recoring approaching Destination');
-                inst_list.join(" ")
-                return new Promise(() => {list_making(readme.testing_prompt,"testing",readme)});
-
-
-
+                console.log(inst_list)
+            };
+            //console.log('Recoring approaching Destination');
+            inst_list.join(" ")
+            return new Promise(() => {list_making(readme.testing_prompt,"testing",readme)});
 
         } else if (variable === "testing") {
             if (test_list == null) {
                 test_list.push("N/A");
-                console.log("No Instructions");
-                test_list.join(" ")
-                return new Promise(() => {create_readme(readme,inst_list,test_list)}); 
+                //console.log("No Instructions"); 
             } else {
-                console.log(test_list)};
-                test_list.join(" ")
-                return new Promise(() => {create_readme(readme,inst_list,test_list)}); 
-        } else {console.log("Recoding failure - 3")};
+                console.log(test_list)
+            };
+            test_list.join(" ")
+            return new Promise(() => {create_readme(readme,inst_list,test_list)}); 
+        } else {
+            console.log("Recoding failure - 3")
+        };
     } else {
         console.log("Instruction Terminated")
     };
