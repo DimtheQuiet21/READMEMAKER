@@ -35,7 +35,7 @@ const list_making = (call,variable,readme) => {
     } else if (call === "No") {
         console.log("Recording in Progress")
         if (variable === "installation") {
-            if (inst_list == null) {
+            if (inst_list == '') {
                 inst_list.push("N/A");
                 //console.log("No Instructions");
             } else {
@@ -46,7 +46,7 @@ const list_making = (call,variable,readme) => {
             return new Promise(() => {list_making(readme.testing_prompt,"testing",readme)});
 
         } else if (variable === "testing") {
-            if (test_list == null) {
+            if (test_list == '') {
                 test_list.push("N/A");
                 //console.log("No Instructions"); 
             } else {
@@ -156,11 +156,44 @@ function get_license (prompt) {
     else {console.log("license_error")};
 };
 
+function find_pic(readme){
+    if ("./assets/screenshot" !== null){ 
+        const files = fs.readdirSync('./assets/')
+        const pic_array = [];
+        files.forEach((file) => {
+            let file_ext = file.split('.').pop();
+            let file_condition = (file_ext) => {
+                console.log(file_ext);
+                switch (file_ext.toLowerCase()) {
+                    case "png":
+                        return true
+                    case "jpg":
+                        return true
+                    case "tiff":
+                        return true
+                    case "gif":
+                        return true
+                    case "jpeg":
+                        return true
+                    default :
+                        console.log ("extension unfound")
+                };
+            };
+            let ext_test = file_condition(file_ext);
+            if ( ext_test === true) {
+                pic_array.push(`![Screenshot of ${readme.project_name}](./assets/${file})`)
+            };
+        }); 
+        return pic_array
+    }
+    else {return ''}; 
+};
+
 function create_readme (readme) {
-    
     const chosen_license = get_license(readme.license_prompt);
+    const screenshot = find_pic(readme);
     const final_readme =
-    
+
 `# ${readme.project_name} by ${readme.user_name}
 
 ${chosen_license}
@@ -197,6 +230,7 @@ ${test_list}
 
 ## Deployed Website 
 Link to ${readme.user_name}'s ${readme.project_name}: ${readme.URL_name}
+${screenshot}
 
 ## Questions?
 Link to ${readme.user_name}'s GitHub Repository: ${readme.URL_name}
