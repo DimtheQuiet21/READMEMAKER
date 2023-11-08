@@ -33,12 +33,11 @@ People may use this project however they wish too!
 N/A
 
 ## Deployed Website 
-Link to Alan Lee's READMEMaker: https://github.com/DimtheQuiet21/READMEMAKER
+Link to Alan Lee's GitHub Repository: https://github.com/DimtheQuiet21/READMEMAKER
+Link to VIDEO of Alan Lee's Readmemaker: https://youtu.be/OV3SQ5hjwyo
 ![Screenshot of READMEMaker](./assets/screenshot.png)
 
 ## Questions?
-Link to Alan Lee's GitHub Repository: https://github.com/DimtheQuiet21/READMEMAKER
-Link to VIDEO of Alan Lee's Readmemaker: https://youtu.be/OV3SQ5hjwyo
 Please Contact Alan Lee at aflee227@gmail.com if you have additional questions.
 
 ## Contributing 

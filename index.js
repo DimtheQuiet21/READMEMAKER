@@ -233,7 +233,6 @@ Link to ${readme.user_name}'s ${readme.project_name}: ${readme.URL_name}
 ${screenshot}
 
 ## Questions?
-Link to ${readme.user_name}'s GitHub Repository: ${readme.URL_name}
 Please Contact ${readme.user_name} at ${readme.email_name} if you have additional questions.
 
 ## Contributing 
