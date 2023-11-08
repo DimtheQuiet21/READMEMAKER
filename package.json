@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "inquirer": "^8.2.6"
+    "inquirer": "^8.2.4"
   },
   "name": "readmemaker",
   "description": "This is a Node Project that will allow us to automatically generate Readmes",

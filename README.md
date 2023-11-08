@@ -34,6 +34,7 @@ Link to Alan Lee's READMEMAKER: https://github.com/DimtheQuiet21/READMEMAKER
 
 ## Questions?
 Link to Alan Lee's GitHub Repository: https://github.com/DimtheQuiet21/READMEMAKER
+Link to VIDEO of Alan Lee's Readmemaker: https://youtu.be/OV3SQ5hjwyo
 Please Contact Alan Lee at aflee227@gmail.com if you have additional questions.
 
 ## Contributing 
